@@ -1,0 +1,38 @@
+# Distributed under the MIT License.
+# See LICENSE.txt for details.
+
+DomainCreator:
+  BinaryCompactObject:
+    InnerRadiusObjectA: 0.4409
+    OuterRadiusObjectA: 6.0
+    XCoordObjectA: -10.0
+    ExciseInteriorA: true
+    InnerRadiusObjectB: 0.4409
+    OuterRadiusObjectB: 6.0
+    XCoordObjectB: 10.0
+    ExciseInteriorB: true
+    RadiusOuterCube: 100.0
+    RadiusOuterSphere: 590.0
+    InitialRefinement: 2
+    InitialGridPoints: 8
+    UseEquiangularMap: true
+    UseLogarithmicMapOuterSphericalShell: true
+    UseLogarithmicMapObjectA: true
+    AdditionToObjectARadialRefinementLevel: 4
+    UseLogarithmicMapObjectB: true
+    AdditionToObjectBRadialRefinementLevel: 4
+
+EventsAndTriggers:
+  ? Always:
+  : - Completion
+
+Observers:
+  VolumeFileName: VolumeData
+  ReductionFileName: ReductionData
+
+Evolution:
+  InitialTime: 0.0
+  InitialTimeStep: 0.01
+  TimeStepper:
+    AdamsBashforthN:
+      Order: 1

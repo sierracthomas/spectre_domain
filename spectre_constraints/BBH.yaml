@@ -1,0 +1,94 @@
+# Distributed under the MIT License.
+# See LICENSE.txt for details.
+
+# Executable: EvolveGeneralizedHarmonic
+# Check: parse;execute
+# Timeout: 8
+# ExpectedOutput:
+#   GhKerrSchildReductionData.h5
+#   GhKerrSchildVolumeData0.h5
+
+Evolution:
+  InitialTime: 0.0
+  InitialTimeStep: 0.001
+  TimeStepper: DormandPrince5
+
+DomainCreator:
+  BinaryCompactObject:
+    InnerRadiusObjectA: 0.4409
+    OuterRadiusObjectA: 6.0
+    XCoordObjectA: -10.0
+    ExciseInteriorA: true
+    InnerRadiusObjectB: 0.4409
+    OuterRadiusObjectB: 6.0
+    XCoordObjectB: 10.0
+    ExciseInteriorB: true
+    RadiusOuterCube: 100.0
+    RadiusOuterSphere: 590.0
+    InitialRefinement: 2
+    InitialGridPoints: 8
+    UseEquiangularMap: true
+    UseLogarithmicMapOuterSphericalShell: true
+    UseLogarithmicMapObjectA: true
+    AdditionToObjectARadialRefinementLevel: 4
+    UseLogarithmicMapObjectB: true
+    AdditionToObjectBRadialRefinementLevel: 4
+
+SpecFuncOfTimeReader:
+  FunctionOfTimeFile: "/home/sierra/BBH_FunctionOfTime.h5"
+  #FunctionOfTimeNameMap: {ExpansionFactor: ExpansionFactor, Unity: Unity}
+  FunctionOfTimeNameMap: {}
+
+AnalyticSolution:
+  KerrSchild:
+    Mass: 1.0
+    Spin: [0.0, 0.0, 0.0]
+    Center: [1.0e9, 0.0, 0.0]
+
+EvolutionSystem:
+  GeneralizedHarmonic:
+    Gauge:
+      RollOnStartTime: 100000.0
+      RollOnTimeWindow: 100.0
+      SpatialDecayWidth: 50.0
+
+NumericalFlux:
+  UpwindPenalty:
+
+EventsAndTriggers:
+  ? EveryNSlabs:
+      N: 100
+      Offset: 0
+  : - ObserveTensorNorms
+  ? EveryNSlabs:
+      N: 100
+      Offset: 0
+  : - ObserveFields
+  ? EveryNSlabs:
+      N: 1000000000
+      Offset: 10000000000
+  : - AhA
+  #? PastTime: 0.2
+  ? Always:
+  : - Completion
+
+Observers:
+  VolumeFileName: "GhBBHVolumeData"
+  ReductionFileName: "GhBBHReductionData"
+
+ApparentHorizons:
+  AhA:
+    InitialGuess:
+      Lmax: 12
+      Radius: 2.2
+      Center: [0.0, 0.0, 0.0]
+    FastFlow:
+      Flow: Fast
+    Verbosity: Silent
+
+Importers:
+  NumericInitialData:
+    FileName: "/home/sierra/new_spectre/spectre/constraint_image_test/spectre_interp/ID_BBH_VolumeData0.h5"
+    Subgroup: "element_data"
+    ObservationValue: 0.0
+
