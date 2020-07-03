@@ -16,7 +16,7 @@ cp -r /home/geoffrey/aps2020/after_aps/import/Domain5b/spec_interp .
 
 # Make old/ directories for the cleanup script
 
-cd ../spectre_interp
+cd spectre_interp
 mkdir old
 
 cd ../spectre_start_domain
