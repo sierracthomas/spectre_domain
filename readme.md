@@ -15,7 +15,7 @@ black hole job.
 
 4) Edit the `Ocean.sh` file in `spectre_constraints` to point to the `BBH.yaml` file in there, as well as your precloned SpECTRE directories. 
 
-5) cd back into the `spectre_domain` repo, and do `bash setup.sh` to set up the project. (Before this step, check to make sure `spec_interp` does not have level data in it - you can do `bash cleanup.sh` to clear this)
+5) cd back into the `spectre_domain` repo, and do `bash setup.sh` to set up the project. (After this step, check to make sure `spec_interp` does not have level data in it - you can do `bash cleanup.sh` to clear this)
 
 ## Project instructions
 
