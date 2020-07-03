@@ -3,7 +3,7 @@
 # Make softlink to ExportCoordinates executable - make sure this is compiled in your
 # SpECTRE repo
 
-export SPECTRE_BUILD_DIRECTORY=/home/sierra/new_spectre/spectre/build
+export SPECTRE_BUILD_DIRECTORY=/home/sierra/new_spectre/spectre/build_singularity_release
 #export SPEC = path/to/spec
 
 cd spectre_start_domain
