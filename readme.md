@@ -7,8 +7,7 @@ black hole job.
 
 ## Setup Instructions
 
-1) Clone this repository to the computer/cluster you will be running the jobs
-on. 
+1) Clone this repository on ocean. 
 
 2) Edit the setup.sh script to point to your precloned SpEC and SpECTRE directories.
 
@@ -25,3 +24,5 @@ on.
 2) Use the first script to run the intial SpEC job. Do `bash first_script.sh` and allow that job to run on the compute nodes.
 
 3) When the SpEC job has finished, use the second script to run the SpECTRE job: `bash second_script.sh` 
+
+4) After the SpECTRE job has finished, use the xdmf converter to convert the GhBBHVolumeData files to a .xmf file. Download both to your local computer and visualize in paraview. 
