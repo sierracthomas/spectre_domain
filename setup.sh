@@ -23,3 +23,5 @@ cd ../spectre_start_domain
 mkdir old
 
 cd ..
+
+rm -r spec_interp/Lev3_AA
