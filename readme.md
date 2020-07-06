@@ -1,7 +1,7 @@
 ## SpECTRE Domain setup
 
 This tutorial will teach you how to setup a process to make a domain 
-in spectre, interpolate spec data onto it, and then let spectre run a binary 
+in spectre, interpolate SpEC data onto it, and then let SpECTRE run a binary 
 black hole job. 
 
 
@@ -21,7 +21,7 @@ black hole job.
 
 ## Project instructions
 
-1) To begin, edit `spectre_constraints/BBH.yaml` and `spectre_start_domain/BBH_working.yaml` to match, adding options as desired.
+1) To begin, edit `spectre_constraints/BBH.yaml` and `spectre_start_domain/BBH_working.yaml` to match, adding options as desired. Make sure these point to your own `.h5` files. 
 
 2) Use the first script to run the intial SpEC job. Do `bash first_script.sh` and allow that job to run on the compute nodes.
 
