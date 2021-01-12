@@ -9,13 +9,13 @@ black hole job.
 
 1) Clone this repository on ocean.
 
-2) Fetch and checkout @geoffrey4444's `bbh_attempt_3` SpECTRE branch and compile in singularity - we do this to use the `EvolveKerrSchildNumericInitialData` executable.
+2) Clone @moxcode's spectre fork on ocean, or fetch his branches from a different spectre clone. Checkout the `cce_gh_executable_gh_gts` branch and compile the `EvolveGhKerrSchildNumericInitialDataWithCce` executable using `make -j4 EvolveGhKerrSchildNumericInitialDataWithCce`. Use the OceanClang.sh file to load spectre modules. 
 
-3) Edit the `setup.sh` script to point to your precloned SpECTRE build directory.
+3) Compile the `ExportCoordinates3D` executable: in your SpECTRE build directory - the same branch - `make -j4 ExportCoordinates3D`
 
-4) Compile the `ExportCoordinates3D` executable on your SpECTRE branch: in your SpECTRE build directory, enter the singularity container, then type `make -j4 ExportCoordinates3D`
+4) Edit the `setup.sh` script to point to your precloned SpECTRE build directory.
 
-5) Edit the `Ocean.sh` file in `spectre_constraints` to point to the `BBH.yaml` file in there, as well as your precloned SpECTRE directories. 
+5) Edit the `OceanClang.sh` file in `spectre_constraints` to point to the `BH.yaml` file in there, as well as your precloned SpECTRE directories. 
 
 6) cd back into the `spectre_domain` repo, and do `bash setup.sh` to set up the project. 
 

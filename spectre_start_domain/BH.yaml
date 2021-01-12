@@ -1,0 +1,28 @@
+# Distributed under the MIT License.
+# See LICENSE.txt for details.
+
+DomainCreator:
+    Shell:
+      InnerRadius: 1.9
+      OuterRadius: 300.0
+      InitialRefinement: 2
+      InitialGridPoints: [8, 8]
+      UseEquiangularMap: true
+      AspectRatio: 1.0
+      WhichWedges: All
+      UseLogarithmicMap: true
+      RadialBlockLayers: 8
+
+EventsAndTriggers:
+  ? Always
+  #? PastTime: 400.0
+  : - Completion
+
+Observers:
+  VolumeFileName: VolumeData
+  ReductionFileName: ReductionData
+
+Evolution:
+  InitialTime: 0.0
+  InitialTimeStep: 0.01
+  TimeStepper: DormandPrince5
