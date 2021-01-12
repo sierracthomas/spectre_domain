@@ -1,18 +1,18 @@
 #!/bin/bash
 
+
 # Make softlink to ExportCoordinates executable - make sure this is compiled in your
 # SpECTRE repo
 
-export SPECTRE_BUILD_DIRECTORY=/home/sierra/new_spectre/spectre/build_singularity_release
-#export SPEC = path/to/spec
+export SPECTRE_BUILD_DIRECTORY=${HOME}/gw_spectre/build_singularity
 
 cd spectre_start_domain
-ln -s ${SPECTRE_BUILD_DIRECTORY}/bin/ExportCoordinates3D .
+ln -s ${SPECTRE_BUILD_DIRECTORY}/bin/EvolveGhKerrSchildNumericInitialDataWithCce
 
 # Make a SpEC interpolation directory and copy over SpEC
 
 cd ..
-cp -r /home/geoffrey/aps2020/after_aps/import/Domain5b/spec_interp .
+cp -r /home/geoffrey/spectre_tests/Kerr/Numerical/DampedHarmonic/WavePulse/rebase/spec_interp .
 
 # Make old/ directories for the cleanup script
 
@@ -24,4 +24,4 @@ mkdir old
 
 cd ..
 
-rm -r spec_interp/Lev3_AA
+#rm -r spec_interp/Lev3_AA
