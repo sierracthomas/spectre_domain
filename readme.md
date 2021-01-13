@@ -16,6 +16,16 @@ This tutorial will teach you how to set up a process to make a domain in SpECTRE
 
 6) cd back into the `spectre_domain` repo, and do `bash setup.sh` to set up the project. 
 
+## High-resolution project instructions
+
+1) If you want to run a perturbed BH with a high resolution (i.e. something like an `InitialRefinement` of 3), use these instructions. To begin, edit `spectre_start_domain/BH.yaml` and `spectre_constraints/KerrSchildPlusCce.yaml`. Make sure these match and point to your own `.h5` files. 
+
+2) Do `bash first_script_high_res.sh`. This will prepare your SpEC run and split the `PointsList.txt` file into pieces that SpEC can run without using too much memory and crashing. This will leave you with a directory called `Interps/` and a bunch of files in the `spec_interp` directory. The `split` function in the script splits the txt file into files called `xaa`, `xab`, and so forth, depending on the resolution. 
+
+3) `cd` into `spec_interp`. Change the `DoMultipleRuns.input` file to point to each of the new txt files (`xaa`, `xab`, ...). In this directory, do `./StartJob`. When this is done, do this: `mv spec_interp/Lev5/Run/InterpolatedData/Interp.dat ../Interps/Interp1.dat`. Remove the `Lev5` directory. Repeat for each new txt file. 
+
+4) When each SpEC run is done, and all of the `Interp.dat` files have been moved and numbered in the `../Interps/.` directory, run `bash second_script_high_res.sh`. 
+
 ## Project instructions
 
 1) To begin, edit `spectre_start_domain/BH.yaml` and `spectre_constraints/KerrSchildPlusCce.yaml` to match, adding options as desired. Make sure these point to your own `.h5` files. 
