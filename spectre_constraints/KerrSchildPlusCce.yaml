@@ -1,0 +1,109 @@
+# Distributed under the MIT License.
+# See LICENSE.txt for details.
+
+# Executable: EvolveKerrSchildWithCce
+# Check: parse;execute
+# Timeout: 8
+# ExpectedOutput:
+#   GhKerrSchildReductionData.h5
+#   GhKerrSchildVolumeData0.h5
+
+Evolution:
+  InitialTime: 0.0
+  InitialTimeStep: 0.01
+  TimeStepper: DormandPrince5
+
+Cce:
+  LMax: 16
+  ExtractionRadius: 100.0
+  NumberOfRadialPoints: 12
+  ObservationLMax: 8
+
+  InitializeJ:
+    InverseCubic
+
+  StartTime: 0.0
+  TargetStepSize: 0.1
+
+  Filtering:
+    RadialFilterHalfPower: 24
+    RadialFilterAlpha: 35.0
+    FilterLMax: 14
+
+  GhInterfaceManager:
+    GhLocalTimeStepping:
+      AdamsBashforthOrder: 3
+
+  ScriInterpOrder: 5
+  ScriOutputDensity: 1
+
+ApparentHorizons:
+  Horizon:
+    InitialGuess:
+      Lmax: 12
+      Radius: 2.2
+      Center: [0.0, 0.0, 0.0]
+    FastFlow:
+      Flow: Fast
+    Verbosity: Silent
+
+DomainCreator:
+    Shell:
+      InnerRadius: 1.9
+      OuterRadius: 300.0
+      InitialRefinement: 3
+      InitialGridPoints: [8, 8]
+      UseEquiangularMap: true
+      AspectRatio: 1.0
+      UseLogarithmicMap: true
+      RadialBlockLayers: 8
+
+Importers:
+  NumericInitialData:
+    FileName: "/home/sierra/gw_spectre/initial_data_interp/spectre_constraints/VolumeData0.h5"
+    Subgroup: "element_data"
+    ObservationValue: 0.0
+
+AnalyticSolution:
+  KerrSchild:
+    Mass: 1.0
+    Spin: [0.0, 0.0, 0.0]
+    Center: [0.0, 0.0, 0.0]
+
+EvolutionSystem:
+  GeneralizedHarmonic:
+    DhGaugeParameters:
+      RollOnStartTime: 100000.0
+      RollOnTimeWindow: 100.0
+      SpatialDecayWidth: 50.0
+      Amplitudes: [1.0, 1.0, 1.0]
+      Exponents: [4, 4, 4]
+
+NumericalFlux:
+  UpwindPenalty:
+
+EventsAndTriggers:
+  # ? EveryNSlabs:
+      # N: 2
+      # Offset: 0
+  # : - ObserveTensorNorms
+  # ? Slabs:
+  #     EvenlySpaced:
+  #       Interval: 5000
+  #       Offset: 0
+  # : - ObserveFields:
+  #       SubfileName: VolumeData
+  ? PastTime: 400.0
+  : - Completion
+
+Observers:
+  VolumeFileName: "GhKerrSchildVolumeData"
+  ReductionFileName: "GhKerrSchildReductionData"
+
+InterpolationTargets:
+  CceWorldtubeTarget:
+        Lmax: 16
+        Center: [0.0, 0.0, 0.0]
+        DimensionlessSpin: [0.0, 0.0, 0.0]
+        Mass: 50.0
+        ThetaVariesFastest: false
