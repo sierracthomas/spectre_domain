@@ -6,13 +6,13 @@ spectre_load_modules
 
 cd Interps/
 # Get rid of legends at the top of each file except first
-sed -i '1,3d' Interp2.dat
-sed -i '1,3d' Interp3.dat
-sed -i '1,3d' Interp4.dat
-sed -i '1,3d' Interp5.dat
-sed -i '1,3d' Interp6.dat
-sed -i '1,3d' Interp7.dat
-sed -i '1,3d' Interp8.dat
+sed -i '1,3d' 2.dat
+sed -i '1,3d' 3.dat
+sed -i '1,3d' 4.dat
+sed -i '1,3d' 5.dat
+sed -i '1,3d' 6.dat
+sed -i '1,3d' 7.dat
+sed -i '1,3d' 8.dat
 
 # Join files together
 cat Interp1.dat Interp2.dat Interp3.dat Interp4.dat Interp5.dat Interp6.dat Interp7.dat Interp7.dat > spectre_interp/Interp.dat

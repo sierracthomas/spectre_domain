@@ -50,22 +50,24 @@ lines=`wc -l < spec_interp/PointsList.log`
 loops=$((lines/1572864))
 
 #rename each x** file for simplicity
-for i in x*; do mv "$i" "$(printf $num).txt"; ((num++)); done
+num=0; for i in x*; do mv "$i" "$(printf $num).txt"; ((num++)); done
 
-echo "\$InterpPath = \"${PWD}/spec_interp/1.txt\";" > newtext.txt
+echo "\$InterpPath = \"${PWD}/spec_interp/0.txt\";" > newtext.txt
 
 cat ${PWD}/spec_interp/DoMultipleRunsHeader.input newtext.txt ${PWD}/spec_interp/DoMultipleRunsRemainder.input > ${PWD}/spec_interp/DoMultipleRuns.input
 
-cd spec_interp
-./StartJob
-cd ..
+spec_interp/StartJob
 
-for ((i = 0 ; i < $loops ; i++)); do
+for ((i = 0 ; i < (($loops + 1)) ; i++)); do
     if [ -f spec_interp/Lev5/Run/InterpolatedData/Interp.dat ]; then
-	echo "Run is done, starting next run..."
-	#mv spec_interp/Lev5/Run/InterpolatedData/Interp.dat Interps/Interp.dat
-	#break
+	mv spec_interp/Lev5/Run/InterpolatedData/Interp.dat Interps/$(printf (($i - 1))).dat
+        echo "Run is done, starting next run..."
+	echo "\$InterpPath = \"${PWD}/spec_interp/$(printf $i).txt\";" > newtext.txt
+	cat ${PWD}/spec_interp/DoMultipleRunsHeader.input newtext.txt ${PWD}/spec_interp/DoMultipleRunsRemainder.input > ${PWD}/spec_interp/DoMultipleRuns.input
+	spec_interp/StartJob
     fi
     echo "Run is not yet complete"
     sleep 1s
 done
+
+
