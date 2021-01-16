@@ -1,0 +1,8 @@
+#!/usr/bin/env perl
+# Which levels (i.e. resolutions) to run?
+$MinLev = 5;
+$MaxLev = 5;
+
+$FinalTime = 0.0;
+$FinalStep = 1e6;
+

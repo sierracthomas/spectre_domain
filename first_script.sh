@@ -3,7 +3,7 @@
 export SPECTRE_BUILD_DIR=${HOME}/jordan_spectre/build
 
 cd spectre_start_domain/
-source ${SPECTRE_BUILD_DIR}../support/Environments/ocean_clang.sh
+source ${SPECTRE_BUILD_DIR}/../support/Environments/ocean_clang.sh
 spectre_load_modules
 
 # Make VolumeData0.h5 file based on the input file

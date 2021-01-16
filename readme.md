@@ -6,7 +6,7 @@ This tutorial will teach you how to set up a process to make a domain in SpECTRE
 
 1) Clone this repository on ocean.
 
-2) Clone @moxcode's spectre fork on ocean, or fetch his branches from a different spectre clone. Checkout the `cce_gh_executable_gh_gts` branch and compile the `EvolveGhKerrSchildNumericInitialDataWithCce` executable using `make -j4 EvolveGhKerrSchildNumericInitialDataWithCce`. Use the OceanClang.sh file to load spectre modules. 
+2) Clone @moxcode's spectre fork on ocean, or fetch his branches from a different spectre clone. Checkout the `cce_gh_executable_gh_gts` branch and compile the `EvolveGhKerrSchildNumericInitialDataWithCce` executable using `make -j4 EvolveGhKerrSchildNumericInitialDataWithCce`. Use the `support/Environments/ocean_clang.sh` file to load spectre modules. 
 
 3) Compile the `ExportCoordinates3D` executable: in your SpECTRE build directory - the same branch - do `make -j4 ExportCoordinates3D`. 
 

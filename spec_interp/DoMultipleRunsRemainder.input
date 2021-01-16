@@ -1,0 +1,76 @@
+
+# if non-zero, then run with only two shell.  This is quick (for benchmarking),
+# and appears to be convergent for the inner shell when running to Tfinal=2M.
+# However, the outer shell is not convergent, and this is likely
+# unstable, because the outer boundary is much too close.  If zero,
+# then run with 12 shells.
+$JustTwoShells = 0;
+
+# Get the preferences set in the user's ~/.SpEC file
+# This is used here only to cache Ylm-filters, which are
+# very expensive to compute. 
+my %opts = RunGetDotSpecOptions();
+my $TensorYlmDataBaseDir = $opts{"TensorYlmDataBaseDir"};
+
+my $IDDIR = "/home/geoffrey/BH/spectre/BHwave/spec_id/Test_ID/ID/Lev5/EvID/";
+
+my $xA = 0.0;
+my $yA = 0.0;
+my $zA = 0.0;
+
+my $ApparentHorizonsDir = "ApparentHorizons";
+my $rInitAhA = 2.0;
+my $MinLAhA = 4;
+my $InitLAhA = 12;
+my $AhAFile = "$IDDIR/FindAH/HorizonA/AhA_L12Coefs.dat";
+my $StartTime = 0.0;
+my $DeltaTObserve = 0.1;
+my $TruncationErrorMax = 0.0001*exp(-$k);
+my $AhMaxRes  = $TruncationErrorMax;
+my $AhMinRes  = $AhMaxRes / 10.0;
+my $AhMaxTrunc=$TruncationErrorMax;
+my $AhMinTrunc=$AhMaxTrunc / 100.0;
+
+for($k=$MinLev; $k<=$MaxLev; ++$k) { # loop over levels
+
+  $DIR = "Lev".$k;
+  CreateSubmitScript(
+    Cores   => 12,
+    Jobname => $DIR,
+  );
+
+  RunInDirectory($DIR,
+  {
+    "Domain.input" => {
+      "__Nr__"   => 9+4*$k,
+      "__L__"    => 5+2*$k,
+      "__TwoShells__" => ($JustTwoShells ? "; #": "")
+    },
+    "Evolution.input" => {
+      "__time__"      => "0.0",
+      "__FinalTime__" => $FinalTime,
+      "__FinalStep__" => $FinalStep,
+      "__TensorYlmDataBaseDir__" => $TensorYlmDataBaseDir,
+    },
+    "InitialConditions.input" => {
+     "__DIR__" => $IDDIR
+    },
+    "InterpolateData.input" => {"__InterpPath__" => $InterpPath},
+    "ApparentHorizonFinders.input" => {
+      "__ApparentHorizonsDir__" => $ApparentHorizonsDir,
+      "__xA__"          => $xA,
+      "__yA__"          => $yA,
+      "__zA__"          => $zA,
+      "__AhAFile__"     => $AhAFile,
+      "__time__"        => $StartTime,
+      "__DeltaTObserve__" => $DeltaTObserve,
+      "__MinLAhA__"     => $MinLAhA,
+      "__InitLAhA__"    => $InitLAhA,
+      "__AhMinRes__"    => $AhMinRes,
+      "__AhMaxRes__"    => $AhMaxRes,
+      "__AhMinTrunc__"  => $AhMinTrunc,
+      "__AhMaxTrunc__"  => $AhMaxTrunc
+    }
+  }
+  );
+}
