@@ -1,5 +1,7 @@
 #!/bin/bash
 
+date
+
 export SPECTRE_BUILD_DIR=${HOME}/jordan_spectre/build
 
 cd spectre_start_domain/
@@ -17,33 +19,8 @@ cd ../spec_interp
 mv ../spectre_start_domain/PointsList.txt PointsList.log
 split PointsList.log -l 1572864
 
-# Run SpEC job to interpolate data onto the domain
-./StartJob.sh
-
-
-# file_count=$(ls $folder_to_count | wc -l) << for loop
-# Something like this, revise tomorrow
-# also implement for loop tomorrow
-#last=wc -l /path/to/interp/dat
-# sleep 15m
-# new=wc -l /path/to/interp/dat
-# if [new - last == 0]
-# then
-# mv interp.dat ../spec_interps/interpx.dat
-# append new beginnings to DoMultipleRuns
-# else repeat (more tomorrow)
-# fi 
-
-
 # Make `Interps` directory to store files
 mkdir ../Interps/
-#!/bin/bash
-
-# file_count=$(ls $folder_to_count | wc -l) << for loop
-# Something like this, revise tomorrow
-# also implement for loop tomorrow
-
-date
 
 # Check how many x** files there will be, and how many times for loop goes
 lines=`wc -l < spec_interp/PointsList.log` 
@@ -56,7 +33,9 @@ echo "\$InterpPath = \"${PWD}/spec_interp/0.txt\";" > newtext.txt
 
 cat ${PWD}/spec_interp/DoMultipleRunsHeader.input newtext.txt ${PWD}/spec_interp/DoMultipleRunsRemainder.input > ${PWD}/spec_interp/DoMultipleRuns.input
 
-spec_interp/StartJob
+cd spec_interp/
+./StartJob
+cd ..
 
 for ((i = 0 ; i < (($loops + 1)) ; i++)); do
     if [ -f spec_interp/Lev5/Run/InterpolatedData/Interp.dat ]; then
@@ -64,10 +43,12 @@ for ((i = 0 ; i < (($loops + 1)) ; i++)); do
         echo "Run is done, starting next run..."
 	echo "\$InterpPath = \"${PWD}/spec_interp/$(printf $i).txt\";" > newtext.txt
 	cat ${PWD}/spec_interp/DoMultipleRunsHeader.input newtext.txt ${PWD}/spec_interp/DoMultipleRunsRemainder.input > ${PWD}/spec_interp/DoMultipleRuns.input
-	spec_interp/StartJob
+	cd spec_interp/
+	./StartJob
+	cd ..
     fi
     echo "Run is not yet complete"
     sleep 1s
 done
 
-
+bash second_script_high_res.sh
