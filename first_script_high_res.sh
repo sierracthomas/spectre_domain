@@ -23,32 +23,41 @@ split PointsList.log -l 1572864
 mkdir ../Interps/
 
 # Check how many x** files there will be, and how many times for loop goes
-lines=`wc -l < spec_interp/PointsList.log` 
+lines=`wc -l < PointsList.log` 
 loops=$((lines/1572864))
 
-#rename each x** file for simplicity
+# rename each x** file for simplicity
 num=0; for i in x*; do mv "$i" "$(printf $num).txt"; ((num++)); done
 
-echo "\$InterpPath = \"${PWD}/spec_interp/0.txt\";" > newtext.txt
+# prepare file to insert for first run
+echo "\$InterpPath = \"${PWD}/0.txt\";" > newtext.txt
 
-cat ${PWD}/spec_interp/DoMultipleRunsHeader.input newtext.txt ${PWD}/spec_interp/DoMultipleRunsRemainder.input > ${PWD}/spec_interp/DoMultipleRuns.input
+cd ..
+cat ${PWD}/spec_interp/DoMultipleRunsHeader.input spec_interp/newtext.txt ${PWD}/spec_interp/DoMultipleRunsRemainder.input > ${PWD}/spec_interp/DoMultipleRuns.input
 
 cd spec_interp/
-./StartJob
+./StartJob.sh
 cd ..
 
-for ((i = 0 ; i < (($loops + 1)) ; i++)); do
+#(($loops + 1)
+
+l=0
+
+for ((i = 0 ; i < 10 ; i++)); do
     if [ -f spec_interp/Lev5/Run/InterpolatedData/Interp.dat ]; then
-	mv spec_interp/Lev5/Run/InterpolatedData/Interp.dat Interps/$(printf (($i - 1))).dat
+	((l++))
+	mv spec_interp/Lev5/Run/InterpolatedData/Interp.dat "Interps/$(printf $l).dat"
         echo "Run is done, starting next run..."
+	rm -r spec_interp/Lev5/
 	echo "\$InterpPath = \"${PWD}/spec_interp/$(printf $i).txt\";" > newtext.txt
 	cat ${PWD}/spec_interp/DoMultipleRunsHeader.input newtext.txt ${PWD}/spec_interp/DoMultipleRunsRemainder.input > ${PWD}/spec_interp/DoMultipleRuns.input
 	cd spec_interp/
-	./StartJob
+	./StartJob.sh
 	cd ..
+    else 
+        echo "Run is not yet complete"
+        sleep 15m
     fi
-    echo "Run is not yet complete"
-    sleep 1s
 done
 
-bash second_script_high_res.sh
+#bash second_script_high_res.sh
