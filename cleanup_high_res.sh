@@ -16,3 +16,4 @@ mkdir ../Old/
 mv ../Interps/ ../Old/.
 cd ..
 rm /home/sierra/gw_spectre/initial_data_interp/spectre_constraints/BH_ID_VolumeData0.h5
+rm -r Interps/
