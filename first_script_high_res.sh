@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/bash -
+#SBATCH -o script.stdout
 
 date
 
@@ -43,13 +44,14 @@ cd ..
 
 l=0
 
-for ((i = 0 ; i < 10 ; i++)); do
+for ((i=10;i>0;i++)); do
     if [ -f spec_interp/Lev5/Run/InterpolatedData/Interp.dat ]; then
 	((l++))
+	sleep 12m
 	mv spec_interp/Lev5/Run/InterpolatedData/Interp.dat "Interps/$(printf $l).dat"
         echo "Run is done, starting next run..."
 	rm -r spec_interp/Lev5/
-	echo "\$InterpPath = \"${PWD}/spec_interp/$(printf $i).txt\";" > newtext.txt
+	echo "\$InterpPath = \"${PWD}/spec_interp/$(printf $l).txt\";" > newtext.txt
 	cat ${PWD}/spec_interp/DoMultipleRunsHeader.input newtext.txt ${PWD}/spec_interp/DoMultipleRunsRemainder.input > ${PWD}/spec_interp/DoMultipleRuns.input
 	cd spec_interp/
 	./StartJob.sh
@@ -57,6 +59,10 @@ for ((i = 0 ; i < 10 ; i++)); do
     else 
         echo "Run is not yet complete"
         sleep 15m
+	if [ -f Interps/8.dat ]; then
+	    echo "Complete"
+            break
+        fi
     fi
 done
 
