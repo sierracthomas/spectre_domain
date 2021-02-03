@@ -18,6 +18,8 @@ This tutorial will teach you how to set up a process to make a domain in SpECTRE
 
 7) `cd` back into the `spectre_domain` repo, and do `bash setup.sh` to set up the project. 
 
+8) Load the SpEC modules. `cd` into `spec_interp` and do `MakeBinDirectory -E <path to SpEC directory>/Hydro/EvolveTwoDomains/Executables/EvolveGRHydro` 
+
 ## High-resolution project instructions
 
 1) If you want to run a perturbed BH with a high resolution (i.e. something like an `InitialRefinement` of 3), use these instructions. To begin, edit `spectre_start_domain/BH.yaml` and `spectre_constraints/KerrSchildPlusCce.yaml`. Make sure these match and point to your own `.h5` files. 
