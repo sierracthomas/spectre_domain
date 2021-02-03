@@ -17,6 +17,8 @@ cp -r /home/geoffrey/spectre_tests/Kerr/Numerical/DampedHarmonic/WavePulse/rebas
 cd spec_interp
 rm bin
 rm SpEC
+ln -s /home/geoffrey/BH/spectre/BHwave/spec_id/Test_ID spec_wave_pulse_id_and_ev
+rm -r Lev5
 
 # Make old/ directories for the cleanup script
 
