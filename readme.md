@@ -6,7 +6,7 @@ This tutorial will teach you how to set up a process to make a domain in SpECTRE
 
 1) Clone this repository on ocean.
 
-2) Clone @moxcode's spectre fork on ocean, or fetch his branches from a different spectre clone. Checkout the `cce_gh_executable_gh_gts` branch and compile the `EvolveGhKerrSchildNumericInitialDataWithCce` executable using `make -j4 EvolveGhKerrSchildNumericInitialDataWithCce`. Use the `support/Environments/ocean_clang.sh` file to load spectre modules. 
+2) Clone @moxcodes' spectre fork on ocean, or fetch his branches from a different spectre clone. Either name this directory `jordan_spectre`, or complete step number 6. Checkout the `cce_gh_executable_gh_gts` branch and compile the `EvolveGhKerrSchildNumericInitialDataWithCce` executable using `make -j4 EvolveGhKerrSchildNumericInitialDataWithCce`. Use the `support/Environments/ocean_clang.sh` file to load spectre modules. 
 
 3) Compile the `ExportCoordinates3D` executable: in your SpECTRE build directory - the same branch - do `make -j4 ExportCoordinates3D`. 
 
@@ -14,17 +14,19 @@ This tutorial will teach you how to set up a process to make a domain in SpECTRE
 
 5) Edit the `OceanClang.sh` file in `spectre_constraints` to point to the `BH.yaml` file in there, as well as your precloned SpECTRE directories. 
 
-6) `cd` back into the `spectre_domain` repo, and do `bash setup.sh` to set up the project. 
+6) *optional* If you did not name @moxcodes' copy `jordan_spectre`, then edit each of the scripts to point to your directory. 
+
+7) `cd` back into the `spectre_domain` repo, and do `bash setup.sh` to set up the project. 
 
 ## High-resolution project instructions
 
 1) If you want to run a perturbed BH with a high resolution (i.e. something like an `InitialRefinement` of 3), use these instructions. To begin, edit `spectre_start_domain/BH.yaml` and `spectre_constraints/KerrSchildPlusCce.yaml`. Make sure these match and point to your own `.h5` files. 
 
-2) Do `bash first_script_high_res.sh`. This will prepare your SpEC run and split the `PointsList.txt` file into pieces that SpEC can run without using too much memory and crashing. This will leave you with a directory called `Interps/` and a bunch of files in the `spec_interp` directory. The `split` function in the script splits the txt file into files called `xaa`, `xab`, and so forth, the number of txt files depending on the resolution. 
+2) Do `sbatch first_script_high_res.sh`. Depending on the number you assigned to `InitialRefinement`, this could take eight hours or more. 
 
-3) `cd` into `spec_interp`. Change the `DoMultipleRuns.input` file to point to each of the new txt files (`xaa`, `xab`, ...). In this directory, do `./StartJob`. When this is done, do this: `mv spec_interp/Lev5/Run/InterpolatedData/Interp.dat ../Interps/Interp1.dat`. Remove the `Lev5` directory. Repeat for each new txt file. 
+3) When this has completed, do `bash second_script_high_res.sh`. 
 
-4) When each SpEC run is done, and all of the `Interp<x>.dat` files have been moved and numbered in the `../Interps/` directory, run `bash second_script_high_res.sh`. 
+4) When the `PythonScript` job has completed, do `bash third_script_high_res.sh` to submit the spectre job. 
 
 ## Low- to normal-resolution project instructions
 
