@@ -16,7 +16,9 @@ This tutorial will teach you how to set up a process to make a domain in SpECTRE
 
 6) *optional* If you did not name @moxcodes' copy `jordan_spectre`, then edit each of the scripts to point to your directory. 
 
-7) `cd` back into the `spectre_domain` repo, and do `bash setup.sh` to set up the project. 
+7) `cd` back into the `spectre_domain` repo, and do `bash setup_cce.sh` to set up the project. 
+
+8) Load the SpEC modules. `cd` into `spec_interp` and do `MakeBinDirectory -E <path to SpEC directory>/Hydro/EvolveTwoDomains/Executables/EvolveGRHydro` 
 
 ## High-resolution project instructions
 
