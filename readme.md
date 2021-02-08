@@ -4,19 +4,19 @@ This tutorial will teach you how to set up a process to make a domain in SpECTRE
 
 ## Setup Instructions
 
-1) Clone this repository on ocean.
+1) Clone this repository on ocean and checkout the `high_res` branch. 
 
-2) Clone @moxcodes' spectre fork on ocean, or fetch his branches from a different spectre clone. Either name this directory `jordan_spectre`, or complete step number 6. Checkout the `cce_gh_executable_gh_gts` branch and compile the `EvolveGhKerrSchildNumericInitialDataWithCce` executable using `make -j4 EvolveGhKerrSchildNumericInitialDataWithCce`. Use the `support/Environments/ocean_clang.sh` file to load spectre modules. 
+2) Clone @moxcodes' spectre fork on ocean, or fetch his branches from a different spectre clone. Either name this directory `jordan_spectre`, or complete step number 6. Use the `support/Environments/ocean_clang.sh` file to load spectre modules. Checkout the `cce_gh_executable_gh_gts` branch and compile the `EvolveGhKerrSchildNumericInitialDataWithCce` executable using `make -j4 EvolveGhKerrSchildNumericInitialDataWithCce`.
 
-3) Compile the `ExportCoordinates3D` executable: in your SpECTRE build directory - the same branch - do `make -j4 ExportCoordinates3D`. 
+3) Compile the `ExportCoordinates3D` executable by doing `make -j4 ExportCoordinates3D`. 
 
-4) Edit the `setup.sh` script to point to your precloned SpECTRE build directory.
+4) Be sure the `setup_cce.sh` script points to this SpECTRE build directory.
 
-5) Edit the `OceanClang.sh` file in `spectre_constraints` to point to the `BH.yaml` file in there, as well as your precloned SpECTRE directories. 
+5) Edit the `OceanClang.sh` file in `spectre_constraints` to point to the spectre directory. Edit the `spectre_constraints/KerrSchildPlusCce.yaml` to point to your directory with `<path>/spectre_constraints/VolumeData0.h5` under `Importers`. 
 
 6) *optional* If you did not name @moxcodes' copy `jordan_spectre`, then edit each of the scripts to point to your directory. 
 
-7) `cd` back into the `spectre_domain` repo, and do `bash setup.sh` to set up the project. 
+7) `cd` back into the `spectre_domain` repo, and do `bash setup_cce.sh` to set up the project. 
 
 8) Load the SpEC modules. `cd` into `spec_interp` and do `MakeBinDirectory -E <path to SpEC directory>/Hydro/EvolveTwoDomains/Executables/EvolveGRHydro` 
 

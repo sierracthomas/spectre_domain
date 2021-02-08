@@ -14,9 +14,13 @@ ln -s ${SPECTRE_BUILD_DIRECTORY}/bin/EvolveGhKerrSchildNumericInitialDataWithCce
 cd ..
 cp -r /home/geoffrey/spectre_tests/Kerr/Numerical/DampedHarmonic/WavePulse/rebase/spec_interp .
 
+cd spec_interp
+rm bin
+rm SpEC
+
 # Make old/ directories for the cleanup script
 
-cd spectre_interp
+cd ../spectre_interp
 mkdir old
 
 cd ../spectre_start_domain
