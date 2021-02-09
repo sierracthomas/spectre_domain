@@ -17,6 +17,7 @@ cp -r /home/geoffrey/spectre_tests/Kerr/Numerical/DampedHarmonic/WavePulse/rebas
 cd spec_interp
 rm bin
 rm SpEC
+rm spec_wave_pulse_id_and_ev
 ln -s /home/geoffrey/BH/spectre/BHwave/spec_id/Test_ID spec_wave_pulse_id_and_ev
 rm -r Lev5
 
