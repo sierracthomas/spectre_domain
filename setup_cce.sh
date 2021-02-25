@@ -12,14 +12,14 @@ ln -s ${SPECTRE_BUILD_DIRECTORY}/bin/EvolveGhKerrSchildNumericInitialDataWithCce
 # Make a SpEC interpolation directory and copy over SpEC
 
 cd ..
-cp -r /home/geoffrey/spectre_tests/Kerr/Numerical/DampedHarmonic/WavePulse/rebase/spec_interp .
+git clone git@github.com:geoffrey4444/inputfiles.git spec_interp
 
 cd spec_interp
-rm bin
-rm SpEC
-rm spec_wave_pulse_id_and_ev
+rm -r MinimalBBHInspiral
+rm -r SingleBHTest
+rm -r WavePulse
+cp SingleBHInterpolateData/* .
 ln -s /home/geoffrey/BH/spectre/BHwave/spec_id/Test_ID spec_wave_pulse_id_and_ev
-rm -r Lev5
 
 # Make old/ directories for the cleanup script
 
