@@ -17,6 +17,7 @@ git clone git@github.com:geoffrey4444/inputfiles.git spec_interp
 cd spec_interp
 cp SingleBHInterpolateData/* .
 ln -s /home/geoffrey/BH/spectre/BHwave/spec_id/Test_ID spec_wave_pulse_id_and_ev
+mv ../DoMultipleRuns* .
 
 # Make old/ directories for the cleanup script
 
