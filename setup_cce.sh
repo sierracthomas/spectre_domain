@@ -15,9 +15,6 @@ cd ..
 git clone git@github.com:geoffrey4444/inputfiles.git spec_interp
 
 cd spec_interp
-rm -r MinimalBBHInspiral
-rm -r SingleBHTest
-rm -r WavePulse
 cp SingleBHInterpolateData/* .
 ln -s /home/geoffrey/BH/spectre/BHwave/spec_id/Test_ID spec_wave_pulse_id_and_ev
 
